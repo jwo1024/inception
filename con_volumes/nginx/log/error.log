@@ -1,8 +1,0 @@
-2023/04/19 05:07:13 [emerg] 8#8: io_setup() failed (38: Function not implemented)
-2023/04/19 05:09:39 [emerg] 8#8: io_setup() failed (38: Function not implemented)
-2023/04/19 05:10:25 [error] 8#8: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.208.1, server: mywp.example.com, request: "GET /wp-admin/install.php HTTP/1.1", upstream: "fastcgi://192.168.208.3:9000", host: "localhost"
-2023/04/19 05:10:26 [error] 8#8: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.208.1, server: mywp.example.com, request: "GET /wp-admin/install.php HTTP/1.1", upstream: "fastcgi://192.168.208.3:9000", host: "localhost"
-2023/04/19 05:10:39 [error] 8#8: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.208.1, server: mywp.example.com, request: "GET / HTTP/1.1", upstream: "fastcgi://192.168.208.3:9000", host: "localhost"
-2023/04/19 05:10:40 [error] 8#8: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.208.1, server: mywp.example.com, request: "GET / HTTP/1.1", upstream: "fastcgi://192.168.208.3:9000", host: "localhost"
-2023/04/19 05:11:19 [emerg] 8#8: io_setup() failed (38: Function not implemented)
-2023/04/19 05:16:16 [emerg] 8#8: io_setup() failed (38: Function not implemented)
