@@ -1,9 +1,10 @@
-FROM alpine:3.14
+FROM alpine:3.16
 
 RUN apk update && \
-	apk add --no-cache nginx
+	apk add nginx
 
-COPY ./default.conf /etc/nginx/conf.d
+COPY ./configure/default.conf /etc/nginx/conf.d/default.conf
+COPY ./configure/nginx.conf	/etc/nginx/nginx.conf
 
 EXPOSE 80
 
