@@ -1,8 +1,9 @@
 FROM alpine:3.16
 
 RUN apk update && \
-	apk upgrade
-RUN apk add php8 && \
+	apk upgrade && \
+	apk add php8 && \
+	apk add php8-fpm && \
 	apk add php8-phar &&\
 	apk add php8-json && \
 	apk add php8-exif && \
@@ -11,14 +12,18 @@ RUN apk add php8 && \
 	apk add mariadb-client && \
 	apk add curl && \
 	apk add wget
-#	apk add iputils
 
-RUN wget https://wordpress.org/latest.tar.gz && \
-	tar -xvf latest.tar.gz && \
-	
+
+COPY ./configure/www.conf /tmp/www.conf
+COPY ./configure/wp-config.php /tmp/wp-config.php
+COPY ./wordpress.sh /tmp/wordpress.sh
+
+#CMD ["/bin/sh", "/tmp/wordpress.sh"]
+#CMD ["/usr/sbin/php8-fpm", "-R", "-F"]
+
+#WORDIR /var/www/html
 
 
 EXPOSE 9000
 
-
-
+#WORKDIR /var/www/html
