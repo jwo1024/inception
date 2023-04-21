@@ -18,7 +18,9 @@ COPY ./configure/www.conf /tmp/www.conf
 COPY ./configure/wp-config.php /tmp/wp-config.php
 COPY ./wordpress.sh /tmp/wordpress.sh
 
-#CMD ["/bin/sh", "/tmp/wordpress.sh"]
+
+#dum_init
+CMD ["/bin/sh", "/tmp/wordpress.sh"]
 #CMD ["/usr/sbin/php8-fpm", "-R", "-F"]
 
 #WORDIR /var/www/html
