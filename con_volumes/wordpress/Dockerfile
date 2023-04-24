@@ -1,5 +1,9 @@
 FROM alpine:3.16
 
+COPY ./configure/www.conf /tmp/www.conf
+COPY ./configure/wp-config.php /tmp/wp-config.php
+COPY ./wordpress.sh /tmp/wordpress.sh
+
 RUN apk update && \
 	apk upgrade && \
 	apk add php8 && \
@@ -13,19 +17,21 @@ RUN apk update && \
 	apk add curl && \
 	apk add wget
 
+RUN chmod +x /tmp/wordpress.sh
 
-COPY ./configure/www.conf /tmp/www.conf
-COPY ./configure/wp-config.php /tmp/wp-config.php
-COPY ./wordpress.sh /tmp/wordpress.sh
+CMD [ "/bin/sh", "/tmp/wordpress.sh"]
+#ENTRYPOINT
 
 
-#dum_init
-CMD ["/bin/sh", "/tmp/wordpress.sh"]
+
 #CMD ["/usr/sbin/php8-fpm", "-R", "-F"]
-
 #WORDIR /var/www/html
+#dum_init
+
 
 
 EXPOSE 9000
 
 #WORKDIR /var/www/html
+
+

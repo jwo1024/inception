@@ -7,7 +7,7 @@ cp -r wordpress/* /var/www/html/
 
 
 #wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-# mv to /usr/local/bin/wp after download i think have to +x chmod? 
+#mv to /usr/local/bin/wp after download i think have to +x chmod? 
 
 #cp wp-cli.phar /usr/local/bin/wp
 
@@ -23,5 +23,4 @@ chmod -R +x /var/www/html/
 
 # sleep 10000
 
-#hostname -i ?
 
