@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: jiwolee <jiwolee@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/21 19:14:54 by jiwolee           #+#    #+#              #
-#    Updated: 2023/04/23 23:49:01 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2023/04/24 22:06:05 by jiwolee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ down:
 
 clean: down
 	rm -rf ./mount_volumes/* 
-	docker rmi $(IMAGES)
+	docker rmi $(shell docker image ls -qa)
 
-fclean: clean
-	docker rm -r $(docker ps -qa)
+fclean: down
+	rm -rf ./mount_volumes/* 
+	docker rm -f $(shell docker ps -qa)
+	docker rmi $(shell docker image ls -qa)
