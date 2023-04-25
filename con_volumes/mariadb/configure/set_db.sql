@@ -1,5 +1,5 @@
 
-CREATE DATABASE my_wp_db;
+CREATE DATABASE 'my_wp_db';
 
 
 CREATE USER 'abc'@'mywp.mynet' IDENTIFIED BY 'mypassword';
