@@ -6,8 +6,13 @@ mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
 sleep 3
 
-mariadb < /tmp/set_db.sql $MYSQL_DATABASE
+#mariadb < /tmp/set_db.sql
 #mariadb -e "CREATE DATABASE ${MYSQL_DATABASE};"
+
+mariadb -e "CREATE DATABASE ${MYSQL_DATABASE};
+ 			CREATE USER ${MYSQL_USER}@'mywp.mynet' IDENTIFIED BY '${MYSQL_PASSWORD}';
+			GRANT ALL ON ${MYSQL_DATABASE}.* TO ${MYSQL_USER}@'mywp.mynet';
+			FLUSH PRIVILEGES;"
 
 
 mysqladmin -u root --password=$MYSQL_ROOT_PASSWORD shutdown
