@@ -15,18 +15,17 @@ RUN apk update && \
 	apk add php8-mysqlnd && \
 	apk add mariadb-client && \
 	apk add curl && \
-	apk add wget
+	apk add wget && \
+	apk add dumb-init
 
 RUN chmod +x /tmp/wordpress.sh
 
-CMD [ "/bin/sh", "/tmp/wordpress.sh"]
-#ENTRYPOINT
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "/tmp/wordpress.sh"]
 
 
 
 #CMD ["/usr/sbin/php8-fpm", "-R", "-F"]
-#WORDIR /var/www/html
-#dum_init
+
 
 
 

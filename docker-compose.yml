@@ -2,14 +2,18 @@ version: "3"
 
 services:
   mariadb:
-    image: mariadb:10.6.4-focal
     container_name: mariadb
+    #image: mariadb:10.6.4-focal
+    build:
+      context: ./con_volumes/mariadb
+      dockerfile: Dockerfile
     restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=mypassword
-      - MYSQL_DATABASE=my_wp_db
-      - MYSQL_USER=abc
-      - MYSQL_PASSWORD=mypassword
+    env_file: .env
+   # environment:
+   #   - MYSQL_ROOT_PASSWORD=mypassword
+   #   - MYSQL_DATABASE=my_wp_db
+   #   - MYSQL_USER=abc
+   #   - MYSQL_PASSWORD=mypassword
     volumes:
       - ./mount_volumes/mariadb/:/var/lib/mysql
     #   - ./con_volumes/mariadb/conf.d:/etc/mysql/conf.d
@@ -21,24 +25,23 @@ services:
 
   wordpress:
     container_name: mywp
-   # image: wordpress:5.1.1-fpm-alpine
     build: 
       context: ./con_volumes/wordpress
       dockerfile: Dockerfile
     restart: always
     depends_on:
       - mariadb
-    environment:
-      - WORDPRESS_DB_HOST=mariadb
-      - WORDPRESS_DB_USER=abc
-      - WORDPRESS_DB_PASSWORD=mypassword
-      - WORDPRESS_DB_NAME=my_wp_db
-      - WORDPRESS_TABLE_PREFIX=wp_
+    env_file: .env
+    #environment:
+    #  - WORDPRESS_DB_HOST=mariadb
+    #  - WORDPRESS_DB_USER=abc
+    #  - WORDPRESS_DB_PASSWORD=mypassword
+    #  - WORDPRESS_DB_NAME=my_wp_db
+    #  - WORDPRESS_TABLE_PREFIX=wp_
     volumes:
       - ./mount_volumes/wordpress:/var/www/html
     networks:
       - mynet
-    tty: true
 
   nginx:
     container_name: mynginx

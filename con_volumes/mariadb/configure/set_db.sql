@@ -2,8 +2,8 @@
 CREATE DATABASE my_wp_db;
 
 
-CREATE USER 'mariadb'@'%' IDENTIFIED BY 'mypassword';
-GRANT ALL ON my_wp_db.* TO 'mariadb'@'%';
+CREATE USER 'abc'@'mywp.mynet' IDENTIFIED BY 'mypassword';
+GRANT ALL ON my_wp_db.* TO 'abc'@'mywp.mynet';
 
 FLUSH PRIVILEGES;
 
