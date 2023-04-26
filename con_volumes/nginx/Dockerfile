@@ -13,12 +13,17 @@ RUN apk update && \
 
 COPY ./configure/default.conf /etc/nginx/conf.d/default.conf
 COPY ./configure/nginx.conf	/etc/nginx/nginx.conf
+COPY ./script/nginx.sh /tmp/nginx.sh
 
-EXPOSE 80
+
+#EXPOSE 80
 EXPOSE 443
 
+
+
 ENTRYPOINT [ "dumb-init", "--" ]
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "/bin/sh", "/tmp/nginx.sh" ]
+#CMD ["nginx", "-g", "daemon off;"]
 
 # https://wiki.alpinelinux.org/wiki/Nginx
 # mkdir /www

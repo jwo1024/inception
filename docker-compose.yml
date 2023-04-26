@@ -3,20 +3,13 @@ version: "3"
 services:
   mariadb:
     container_name: mariadb
-    #image: mariadb:10.6.4-focal
     build:
       context: ./con_volumes/mariadb
       dockerfile: Dockerfile
     restart: always
     env_file: .env
-   # environment:
-   #   - MYSQL_ROOT_PASSWORD=mypassword
-   #   - MYSQL_DATABASE=my_wp_db
-   #   - MYSQL_USER=abc
-   #   - MYSQL_PASSWORD=mypassword
     volumes:
       - ./mount_volumes/mariadb/:/var/lib/mysql
-    #   - ./con_volumes/mariadb/conf.d:/etc/mysql/conf.d
     networks:
       - mynet
     expose:
@@ -32,12 +25,6 @@ services:
     depends_on:
       - mariadb
     env_file: .env
-    #environment:
-    #  - WORDPRESS_DB_HOST=mariadb
-    #  - WORDPRESS_DB_USER=abc
-    #  - WORDPRESS_DB_PASSWORD=mypassword
-    #  - WORDPRESS_DB_NAME=my_wp_db
-    #  - WORDPRESS_TABLE_PREFIX=wp_
     volumes:
       - ./mount_volumes/wordpress:/var/www/html
     networks:
@@ -52,7 +39,8 @@ services:
     depends_on:
       - wordpress
     ports:
-      - 80:80
+    #  - 80:80
+      - 443:443
     volumes:
       - ./mount_volumes/wordpress:/var/www/html
       - ./mount_volumes/nginx/log:/var/log/nginx
