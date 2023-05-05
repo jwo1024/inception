@@ -7,9 +7,6 @@ set -e
 if [ ! -f /var/www/html/wp-config.php ]; then
 
 mkdir -p $WP_DIR_PATH
-#curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-#chmod +x wp-cli.phar
-#mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --path=$WP_DIR_PATH
 wp config create --path=$WP_DIR_PATH --dbname=$WORDPRESS_DB_NAME --dbuser=$WORDPRESS_DB_USER --dbpass=$WORDPRESS_DB_PASSWORD --dbhost=$WORDPRESS_DB_HOST --dbprefix=$WORDPRESS_TABLE_PREFIX
@@ -20,10 +17,5 @@ wp user create  --path=$WP_DIR_PATH $WORDPRESS_USER $WORDPRESS_USER_EMAIL --role
 wp plugin update --all --path=$WP_DIR_PATH
 
 fi
-
-#rm /etc/php8/php-fpm.d/www.conf
-#cp -f /tmp/www.conf /etc/php8/php-fpm.d/www.conf
-#chmod -R +x /var/www/html/
-
 
 /usr/sbin/php-fpm8 -R -F

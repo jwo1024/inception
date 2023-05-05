@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: jiwolee <jiwolee@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/21 19:14:54 by jiwolee           #+#    #+#              #
-#    Updated: 2023/05/02 14:37:19 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2023/05/05 21:55:35 by jiwolee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,35 +14,36 @@ NAME = inception
 
 COMPOSE_YML = ./srcs/docker-compose.yml
 
-VOLUME_PATH = ./srcs/mount_volumes
-# /home/jiwolee/data
-# echo "127.0.0.1	jiwolee.42.fr" > /etc/hosts
+VOLUME_PATH =  /home/jiwolee/data
 
 all: $(NAME)
 
 $(NAME):
 	mkdir -p $(VOLUME_PATH)/mariadb/
 	mkdir -p $(VOLUME_PATH)/wordpress/
-	mkdir -p $(VOLUME_PATH)/nginx/
-	echo "127.0.0.1	jiwolee.42.fr" > /etc/hosts
-	docker-compose -f $(COMPOSE_YML) up
+	sudo sh -c 'echo "127.0.0.1 jiwolee.42.fr" > /etc/hosts'
+	sudo docker-compose -f $(COMPOSE_YML) up
 
-up:
-	docker-compose -f $(COMPOSE_YML) up
+up: $(NAME)
+	sudo docker-compose -f $(COMPOSE_YML) up
 
 down:
-	docker-compose -f $(COMPOSE_YML) down
+	sudo docker-compose -f $(COMPOSE_YML) down
 
 clean: down
-	docker rm -f $(shell docker ps -qa)
-	docker rmi $(shell docker image ls -qa)
+	sudo docker stop $(shell sudo docker ps -qa); \
+	sudo docker rm -f $(shell sudo docker ps -qa); \
+	sudo docker rmi -f $(shell sudo docker image ls -qa);
 
-fclean: clean
-	docker volume rm $(shell docker volume ls -q)
-	docker network rm $(shell docker network ls -q)
+fclean: down
+	sudo docker stop $(shell sudo docker ps -qa); \
+	sudo docker rm -f $(shell sudo docker ps -qa); \
+	sudo docker rmi -f $(shell sudo docker image ls -qa); \
+	sudo docker volume rm $(shell sudo docker volume ls -q); \
+	sudo docker network rm $(shell sudo docker network ls -q);
 
 clear_volumes:
-	rm -rf $(VOLUME_PATH)/*
+	sudo rm -rf $(VOLUME_PATH)/*
 
 re: fclean all
 

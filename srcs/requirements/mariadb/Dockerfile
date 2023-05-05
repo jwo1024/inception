@@ -1,20 +1,16 @@
 FROM alpine:3.16
 
+COPY ./script/mariadb.sh /tmp/mariadb.sh
+
 RUN apk update && \
 	apk upgrade && \
 	apk add openrc && \
 	apk add mysql && \
-	apk add mysql-client
+	apk add mysql-client && \
+	apk add dumb-init
 
-#RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql
+RUN chmod +x /tmp/mariadb.sh
 
-#RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql
-
-COPY ./script/mariadb.sh /tmp/mariadb.sh
-COPY ./configure/my.cnf /tmp/my.cnf
-COPY ./configure/mariadb-server.cnf /tmp/mariadb-server.cnf
-
-#ENTRYPOINT [ "dumb-init", "--" ]
-ENTRYPOINT [ "/bin/sh", "/tmp/mariadb.sh" ]
+ENTRYPOINT [ "/usr/bin/dumb-init", "--", "/tmp/mariadb.sh" ]
 
 EXPOSE 3306
